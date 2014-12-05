@@ -3,6 +3,12 @@ html
 		title #{name}
 		link(rel="stylesheet", type="text/css", href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css")
 		link(rel="stylesheet", type="text/css", href="/css/cssterm.css")
+		style
+			#terminal-demo {
+				max-height:400px;
+				overflow:scroll;
+			}
+				
 	body
 		block content
 		script(src="/js/socket.io-1.2.1.js")
