@@ -1,0 +1,11 @@
+{
+  "name": "tailor",
+  "version": "0.1.0",
+  "description": "webservice to watch a log file",
+  "main": "index.js",
+  "author": "Daniel Mills",
+  "license": "MIT",
+  "dependencies": {
+    "socket.io": "^1.2.1"
+  }
+}
