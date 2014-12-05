@@ -2,18 +2,29 @@ var http = require('http')
 var url = require('url')
 var fs = require('fs');
 var exec = require('child_process').exec;
+var jade = require('jade');
+
+//load any extra variables to pass to jade
+var locals = require('./locals.json');
+
+var compile = jade.compileFile('views/content.jade',{
+	pretty:true
+});
 
 if(process.argv.length < 3) {
 	console.log('USAGE: tailor <log file>');
 	process.exit(1);
 }
 
-var LOG_FILE = process.argv[2];
+var LOG_FILE = locals.filename = process.argv[2];
 
 if(!fs.existsSync(LOG_FILE)) {
 	console.log('Log file: ' + LOG_FILE + ' not found.');
 	process.exit(1);
 }
+
+//compile the client view
+var compiledView = compile(locals);
 
 var server = http.createServer(function(req,res) {
 
@@ -24,7 +35,7 @@ var server = http.createServer(function(req,res) {
 		fs.createReadStream(uri.substr(1)).pipe(res);
 	} else if(uri === '/') {
 		res.writeHead(200,{"Content-Type":"text/html"});
-		fs.createReadStream('index.html').pipe(res);
+		res.end(compiledView);
 	} else if(/.css$/.test(uri)) {
 		res.writeHead(200,{"Content-Type":"text/css"});
 		fs.createReadStream(uri.substr(1)).pipe(res);

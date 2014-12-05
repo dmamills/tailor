@@ -6,6 +6,7 @@
   "author": "Daniel Mills",
   "license": "MIT",
   "dependencies": {
-    "socket.io": "^1.2.1"
+    "socket.io": "^1.2.1",
+    "jade": "^1.8.1"
   }
 }
