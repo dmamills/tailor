@@ -1,0 +1,17 @@
+extends layout
+
+block content
+	.container
+		h1 #{name}
+			small  login
+		hr
+		form(action='/login', method="POST")
+			.row
+				label(for="username",class="col-lg-2") Username
+				input(type="text",name="username", class="col-lg-4")
+			.row
+				label(for="password",class="col-lg-2") Password
+				input(type="password",name="password", class="col-lg-4")
+			.row
+				.col-lg-2
+					button(class="btn btn-primary") Login

@@ -2,7 +2,15 @@ extend layout
 
 block content
 	.container
-		h1 #{name}
-			small  logging #{filename}
+		.row
+			.col-lg-6
+				h1 #{name}
+					small  logging #{logfile}
+			.col-lg-6
+				.pull-right
+					a(class="btn btn-primary logout-btn", href="/logout") Logout
 		hr
 		.cssterm
+
+block js
+	script(src="/js/client.js")

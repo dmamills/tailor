@@ -1,3 +1,4 @@
 {
-	"name":"tailor demo"
+	"name":"tailor demo",
+	"logfile":"test.log"
 }

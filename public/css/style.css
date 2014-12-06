@@ -1,0 +1,8 @@
+.logout-btn {
+	margin-top:30px;
+}
+
+#terminal-body {
+	max-height:400px;
+	overflow:scroll;
+}
