@@ -12,6 +12,8 @@ var ensureAuthenticated = require('./lib/passport').ensureAuthenticated;
 // load config file
 var locals = require('./locals.json');
 
+require('./database');
+
 var app = express();
 
 app.set('view engine', 'jade')
