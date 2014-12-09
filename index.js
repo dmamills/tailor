@@ -1,18 +1,17 @@
-var fs = require('fs');
 var express = require('express');
 var session = require('express-session');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
-
-//auth stuff
+var MongoStore = require('connect-mongo')(session);
 var passport = require('./lib/passport').passport;
 var ensureAuthenticated = require('./lib/passport').ensureAuthenticated;
 
 // load config file
-var locals = require('./locals.json');
+var locals = require('./config.json');
+var authRoutes = require('./routes/auth')(passport,locals);
 
-require('./database');
+require('./lib/database')(locals.connectionString);
 
 var app = express();
 
@@ -22,7 +21,10 @@ app.use(logger('dev'));
 app.use(bodyParser());
 app.use(cookieParser());
 app.use(session({
-	  secret: 'sowutidontcareatall'
+	secret: locals.session_secret,
+	store: new MongoStore({
+		db:'tailor'
+	})	
 }));
 
 app.use(passport.initialize());
@@ -30,18 +32,10 @@ app.use(passport.session());
 app.use(express.static(__dirname + '/public'));
 
 app.get('/',ensureAuthenticated,function(req,res) {
-	res.status(200).render('content',locals);
+	res.render('content',locals);
 });
 
-app.get('/login',function(req,res) {
-	res.render('login',locals);
-});
-
-app.get('/logout', function(req,res) {
-	req.logout();
-	res.redirect('/login');
-});
-app.post('/login', passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login', failureFlash: false }));
+app.use('/',authRoutes);
 
 var server = app.listen(8000);
 var io = require('./lib/socket')(server,locals);
