@@ -1,0 +1,24 @@
+extend layout
+
+block content
+	.container
+		h1 Setup tailor
+		hr
+		.row
+			.col-lg-12
+				p It looks like you are running tailor for the first time, please fill out this form to setup your admin account.
+
+		form(action='/setup',method='POST')
+			.row
+				label(for="username",class="col-lg-2") Username
+				input(type="text",name="username", class="col-lg-4")
+			.row
+				label(for="password",class="col-lg-2") Password
+				input(type="password",name="password", class="col-lg-4")
+			.row
+				label(for="confirm_password",class="col-lg-2") Confirm Password
+				input(type="password",name="confirm_password", class="col-lg-4")
+
+			.row
+				.col-lg-2
+					button(class="btn btn-primary") Submit

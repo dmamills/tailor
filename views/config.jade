@@ -1,0 +1,33 @@
+extends layout
+
+block content
+	.container
+		.row
+			.col-lg-10
+				h1 #{name}
+					small  manage files
+			.col-lg-2
+				.pull-right
+					a(class="btn btn-primary logout-btn", href="/logout") Logout
+		hr
+		.row
+			.col-lg-12
+				h3 User: #{user.username}
+		.row
+			.col-lg-12
+				h4 Currently watching #{files.length} files
+		.row
+			.col-lg-12
+				ul
+					- each file in files
+						li
+							h3 #{file.path}
+								form(action="/files/#{file._id}" method="POST")
+									button(class="btn btn-primary") remove
+									
+		.row
+			.col-lg-12
+				form(action="/config", method="POST")
+					label(for="path") Path
+					input(placeholder="path", id="path",name="path")
+					button(class="btn btn-primary") watch filepath

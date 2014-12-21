@@ -10,6 +10,7 @@ var ensureAuthenticated = require('./lib/passport').ensureAuthenticated;
 // load config file
 var locals = require('./config.json');
 var authRoutes = require('./routes/auth')(passport,locals);
+var configRoutes = require('./routes/config')(passport,locals);
 
 require('./lib/database')(locals.connectionString);
 
@@ -24,8 +25,11 @@ app.use(session({
 	secret: locals.session_secret,
 	store: new MongoStore({
 		db:'tailor'
-	})	
+	})
 }));
+
+
+var FIRST_RUN = true;
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -36,6 +40,7 @@ app.get('/',ensureAuthenticated,function(req,res) {
 });
 
 app.use('/',authRoutes);
+app.use('/config',configRoutes);
 
 var server = app.listen(8000);
 var io = require('./lib/socket')(server,locals);
