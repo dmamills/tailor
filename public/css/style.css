@@ -1,11 +1,11 @@
-.logout-btn {
+.nav-btn {
 	margin-top:30px;
 }
 
-#terminal-body {
+.log-container {
 }
-/*--TERMINAL BODY--*/
-#terminal-body {
+
+.log-body {
   font-family: monospace; line-height: 1em;
   font-size: 11px;
   float: left;
@@ -19,6 +19,6 @@
   overflow:scroll;
 }
 
-#terminal-body p {
+.log-body p {
 	line-height:0.8em;
 }

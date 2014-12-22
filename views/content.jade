@@ -1,16 +1,13 @@
-extend layout
+extend authlayout
 
-block content
-	.container
-		.row
-			.col-lg-10
-				h1 #{name}
-					small  logging #{logfile}
-			.col-lg-2
-				.pull-right
-					a(class="btn btn-primary logout-btn", href="/logout") Logout
-		hr
-		#terminal-body
+block pagename
+	small dashboard
+
+block authcontent
+	-each file in files
+		.log-container
+			h1=file.path
+			.log-body(id="log-file-#{file._id}")
 
 block js
 	script(src="/js/TailorClient.js")

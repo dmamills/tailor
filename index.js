@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var MongoStore = require('connect-mongo')(session);
 var passport = require('./lib/passport').passport;
 var ensureAuthenticated = require('./lib/passport').ensureAuthenticated;
+var File = require('./models/File');
 
 // load config file
 var locals = require('./config.json');
@@ -28,15 +29,15 @@ app.use(session({
 	})
 }));
 
-
-var FIRST_RUN = true;
-
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname + '/public'));
 
 app.get('/',ensureAuthenticated,function(req,res) {
-	res.render('content',locals);
+	File.find({},function(err,files) {
+		locals.files = files;
+		res.render('content',locals);
+	});
 });
 
 app.use('/',authRoutes);
@@ -47,3 +48,10 @@ var io = require('./lib/socket')(server,locals);
 
 io.listen(3000);
 console.log('server started on port 8000 watching log: ' + locals.logfile);
+
+
+/*DEBUG log something erry 10 seconds*/
+setInterval(function() {
+	var d = new Date();
+	console.log('update: ' + d.getTime());
+},10000);

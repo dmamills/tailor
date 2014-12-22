@@ -1,0 +1,14 @@
+extends layout
+
+block content
+	.row
+		.col-md-8
+			h1 #{name}
+				block pagename
+		.col-md-4
+			.btn-group.pull-right
+				a(class="btn btn-primary nav-btn", href="/") Dashboard
+				a(class="btn btn-primary nav-btn", href="/config") Settings
+				a(class="btn btn-primary nav-btn", href="/logout") Logout
+	hr
+	block authcontent

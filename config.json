@@ -1,6 +1,6 @@
 {
 	"name":"tailor",
-	"logfile":"test.log",
 	"session_secret":"tailoristotallyawesome",
-	"connectionString":"mongodb://localhost:27017/tailor"
+	"connectionString":"mongodb://localhost:27017/tailor",
+	"inital_length":50
 }

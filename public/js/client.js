@@ -1,19 +1,19 @@
 $(document).ready(function() {
-
-	var outputEl = document.getElementById('terminal-body');
 	var client = new TailorClient(function(data) {
-		var a = data.split("\n");
+		var el = document.getElementById('log-file-'+data.file);
+		var a = data.data.split("\n");
 		for(var i = 0; i < a.length;i++) {
-			outputEl.innerHTML += "<p>" + a[i] + "</p>";
+			el.innerHTML += "<p>" + a[i] + "</p>";
 		}
 
-		outputEl.scrollTop = outputEl.scrollHeight;
+		el.scrollTop = el.scrollHeight;
 	}, function(data) {
-		var a = data.split("\n");
+		var el = document.getElementById('log-file-'+data.file);
+		var a = data.data.split("\n");
 		for(var i = 0; i < a.length;i++) {
-			outputEl.innerHTML += "<p>" + a[i] + "</p>";
+			el.innerHTML += "<p>" + a[i] + "</p>";
 		}
 
-		outputEl.scrollTop = outputEl.scrollHeight;
+		el.scrollTop = el.scrollHeight;
 	});
 });
